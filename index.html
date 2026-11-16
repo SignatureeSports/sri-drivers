@@ -28,9 +28,10 @@ button[disabled]{opacity:.6}.msg{margin-top:12px;padding:12px 14px;border-radius
 .lg .three{display:grid;grid-template-columns:1.3fr .8fr 1.3fr;gap:0 12px}@media(max-width:560px){.lg .three{grid-template-columns:1fr}}
 .lg.more{padding-top:22px}.lg .x{position:absolute;top:4px;right:8px;width:auto;background:none;border:0;color:var(--dim);font-size:13px;padding:4px 6px;font-weight:600}
 .add{margin-top:12px;width:auto;background:#1a2738;border:1px solid var(--fline);padding:10px 14px;font-size:13.5px}
+.to{margin:14px 0 0;padding:8px 12px;border-radius:6px;background:rgba(0,0,0,.28);font-weight:700;color:#fff}.to b{color:var(--gold)}
 .hp{position:absolute;left:-5000px}[hidden]{display:none!important}.fine{color:var(--dim);font-size:12.5px;margin:12px 2px 0}</style></head><body><main>
 <header class="hero"><p class="eyebrow">SIGNATURE RACE INTELLIGENCE · DRIVER PROFILES</p><h1>Submit Your Driver Profile</h1>
-<p>Introduce yourself to the broadcast! Your submission goes to a broadcaster for review before any information or photo can appear on SRI overlays. Send it again any time to update it.</p></header>
+<p class="to" id="leagueTo" hidden></p><p>Introduce yourself to the broadcast! Your submission goes to a broadcaster for review before any information or photo can appear on SRI overlays. Send it again any time to update it.</p></header>
 <form id="f" novalidate>
 <section class="card"><h2>Driver identity</h2><p>Use your <b>iRacing customer ID</b> so your profile stays with you when you join another league or change car numbers. In iRacing: Account, then Customer ID.</p>
 <div class="two"><div><label for="user_id">iRacing customer ID *</label><input id="user_id" type="text" inputmode="numeric" maxlength="9" placeholder="e.g. 123456" required></div>
@@ -58,7 +59,12 @@ button[disabled]{opacity:.6}.msg{margin-top:12px;padding:12px 14px;border-radius
 <button id="send" type="submit">Submit my profile</button><div id="msg" class="msg" role="status"></div>
 <p class="fine">Only your league's broadcaster can see what you send. Nothing is shown until they approve it.</p>
 </form></main><script>
-const $=id=>document.getElementById(id);let photo='';
+const API='https://sri-driver-inbox.jlfollow.workers.dev';const $=id=>document.getElementById(id);let photo='';
+const leagueCode=(new URLSearchParams(location.search).get('league')||'').trim().toUpperCase();
+if(leagueCode){fetch(API+'/api/league?code='+encodeURIComponent(leagueCode)).then(r=>r.json().then(d=>({r,d}))).then(({r,d})=>{
+ const to=$('leagueTo');to.hidden=false;
+ if(r.ok&&d.name){to.textContent='';to.append('Sending to: ');const b=document.createElement('b');b.textContent=d.name;to.append(b);}
+ else{to.textContent=d.error||'This league link is not valid.';$('send').disabled=true;}}).catch(()=>{});}
 document.querySelectorAll('input[name=adult]').forEach(r=>r.addEventListener('change',()=>{$('guardianRow').hidden=document.querySelector('input[name=adult]:checked').value!=='no';}));
 $('bio').addEventListener('input',()=>{$('bioCount').textContent=$('bio').value.length+' / 360';});
 $('photo').addEventListener('change',async e=>{photo='';$('pic').textContent='No photo';const file=e.target.files&&e.target.files[0];if(!file)return;
@@ -76,9 +82,9 @@ $('f').addEventListener('submit',async e=>{e.preventDefault();const adult=docume
  const body={user_id:$('user_id').value.trim(),name:$('name').value,number:$('number').value,team:$('team').value,hometown:$('hometown').value,bio:$('bio').value,
   favorite_track:$('favorite_track').value,favorite_car:$('favorite_car').value,
   leagues:[...document.querySelectorAll('#leagues .lg')].map(r=>{const o={};r.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.value.trim());return o;}),social_link:$('social_link').value,
-  age:$('age').value.trim(),adult,share_age:$('share_age').checked,guardian_consent:$('guardian_consent').checked,consent:$('consent').checked,photo_base64:photo,website:$('website').value};
+  age:$('age').value.trim(),adult,league_code:leagueCode,share_age:$('share_age').checked,guardian_consent:$('guardian_consent').checked,consent:$('consent').checked,photo_base64:photo,website:$('website').value};
  $('send').disabled=true;show('Sending…',true);
- try{const r=await fetch('https://sri-driver-inbox.jlfollow.workers.dev/submit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));
+ try{const r=await fetch(API+'/submit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));
   if(r.ok&&d.ok){show('Sent. Thank you! Your broadcaster will review it before the next show.',true);}else show(d.error||'It did not send. Try again.',false);}
  catch(_){show('It did not send. Check your connection and try again.',false);}finally{$('send').disabled=false;}});
 </script></body></html>
