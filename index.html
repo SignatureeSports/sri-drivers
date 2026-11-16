@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://sri-driver-inbox.jlfollow.workers.dev"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SRI · Driver Profile Submission</title><style>
+:root{--bg:#08101a;--card:#0f1824;--line:#22324a;--field:#0a121c;--fline:#2b3c55;--ink:#eef2f7;--dim:#9fb0c4;--red:#a3101f;--gold:#f2b84b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:22px 14px 60px}
+.hero{border-radius:8px;border-top:3px solid #d01a2c;padding:22px 20px 24px;margin-bottom:14px;
+ background:radial-gradient(120% 140% at 55% 0%,#b0121f 0%,#6e0a16 45%,#1b0d16 100%)}
+.eyebrow{margin:0 0 6px;color:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.14em}
+.hero h1{margin:0;font-size:clamp(24px,5.5vw,30px);line-height:1.15}.hero p{margin:12px 0 0;color:#f3dfe2;max-width:62ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 18px 20px;margin-bottom:14px}
+.card h2{margin:0 0 6px;font-size:17px}.card>p{margin:0 0 6px;color:var(--dim);font-size:13.5px}
+label{display:block;margin:12px 0 5px;font-size:13px;font-weight:700}label small{font-weight:400;color:var(--dim)}
+input[type=text],input[type=number],textarea{width:100%;padding:10px 11px;border:1px solid var(--fline);border-radius:6px;background:var(--field);color:var(--ink);font:inherit}
+input::placeholder,textarea::placeholder{color:#5f7189}textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:#d0283a;box-shadow:0 0 0 2px rgba(208,40,58,.35)}
+button:focus-visible,.check input:focus-visible,.file:focus-within{outline:2px solid #fff;outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}@media(max-width:560px){.two{grid-template-columns:1fr}}
+.check{display:flex;gap:9px;align-items:flex-start;margin:12px 0 0;font-size:13.5px;font-weight:600}.check input{width:17px;height:17px;margin-top:2px;flex:none;accent-color:#d0283a}
+.photo{display:flex;gap:16px;align-items:center;margin-top:10px}.photo .pic{width:92px;height:92px;border-radius:8px;background:var(--field);border:1px dashed var(--fline);
+ display:grid;place-items:center;color:#5f7189;font-size:12px;overflow:hidden;flex:none}.photo img{width:100%;height:100%;object-fit:cover}
+.file{display:inline-block;position:relative;background:#1a2738;border:1px solid var(--fline);border-radius:6px;padding:9px 14px;font-weight:700;font-size:13.5px;cursor:pointer}
+.file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.count{float:right;font-weight:400;color:var(--dim)}
+button{background:linear-gradient(180deg,#c01526,#8e0d1a);color:#fff;border:0;border-radius:6px;padding:15px 22px;font-family:inherit;font-size:16px;font-weight:700;line-height:1;cursor:pointer;width:100%;letter-spacing:.02em}
+button[disabled]{opacity:.6}.msg{margin-top:12px;padding:12px 14px;border-radius:6px;display:none;font-weight:600}
+.msg.err{display:block;background:#3b1118;border:1px solid #7a1d2a}.msg.ok{display:block;background:#0f3320;border:1px solid #1f6b40}
+.lg{position:relative;border:1px solid var(--line);border-radius:7px;padding:4px 12px 12px;margin-top:12px;background:#0c1520}
+.lg .three{display:grid;grid-template-columns:1.3fr .8fr 1.3fr;gap:0 12px}@media(max-width:560px){.lg .three{grid-template-columns:1fr}}
+.lg.more{padding-top:22px}.lg .x{position:absolute;top:4px;right:8px;width:auto;background:none;border:0;color:var(--dim);font-size:13px;padding:4px 6px;font-weight:600}
+.add{margin-top:12px;width:auto;background:#1a2738;border:1px solid var(--fline);padding:10px 14px;font-size:13.5px}
+.hp{position:absolute;left:-5000px}[hidden]{display:none!important}.fine{color:var(--dim);font-size:12.5px;margin:12px 2px 0}</style></head><body><main>
+<header class="hero"><p class="eyebrow">SIGNATURE RACE INTELLIGENCE · DRIVER PROFILES</p><h1>Submit Your Driver Profile</h1>
+<p>Introduce yourself to the broadcast! Your submission goes to a broadcaster for review before any information or photo can appear on SRI overlays. Send it again any time to update it.</p></header>
+<form id="f" novalidate>
+<section class="card"><h2>Driver identity</h2><p>Use your <b>iRacing customer ID</b> so your profile stays with you when you join another league or change car numbers. In iRacing: Account, then Customer ID.</p>
+<div class="two"><div><label for="user_id">iRacing customer ID *</label><input id="user_id" type="text" inputmode="numeric" maxlength="9" placeholder="e.g. 123456" required></div>
+<div><label for="name">Driver name * <small>(as it shows in iRacing)</small></label><input id="name" type="text" maxlength="100" required autocomplete="name"></div>
+<div><label for="number">Preferred car number</label><input id="number" type="text" maxlength="20"></div>
+<div><label for="team">Team</label><input id="team" type="text" maxlength="90"></div>
+<div><label for="hometown">Hometown <small>(city / state / country)</small></label><input id="hometown" type="text" maxlength="90"></div>
+<div><label for="age">Age <small>(optional if 18+)</small></label><input id="age" type="number" min="5" max="120" inputmode="numeric" placeholder="Optional"></div></div>
+<label class="check"><input id="share_age" type="checkbox"> I agree that my age may be shown on a broadcast. Otherwise, it stays off the air.</label></section>
+<section class="card"><h2>About your racing</h2>
+<div class="two"><div><label for="favorite_track">Favorite track</label><input id="favorite_track" type="text" maxlength="90"></div>
+<div><label for="favorite_car">Favorite car</label><input id="favorite_car" type="text" maxlength="90"></div>
+</div><div><label for="social_link">Social handle or racing link</label><input id="social_link" type="text" maxlength="100" placeholder="@handle or https://…"></div></div>
+<label for="bio">Short driver bio / achievements <span class="count" id="bioCount">0 / 360</span></label><textarea id="bio" maxlength="360" placeholder="A sentence or two the commentators can use."></textarea></section>
+<section class="card"><h2>Leagues you race in</h2><p>One line per league. The <b>league ID</b> is the league's number in iRacing (shown on the league's page and in its web address). <b>Your name in the league</b> is how its standings show you, if it differs from iRacing.</p>
+<div id="leagues"></div><button type="button" class="add" id="addLeague">+ Add another league</button></section>
+<section class="card"><h2>Driver photo</h2><p>A clear head-and-shoulders photo works best. It is shrunk and its hidden camera and location details are removed before it is sent.</p>
+<div class="photo"><div class="pic" id="pic">No photo</div><label class="file">Choose a photo<input id="photo" type="file" accept="image/*"></label></div></section>
+<section class="card"><h2>Permission</h2>
+<label class="check"><input type="radio" name="adult" value="yes" checked> I am 18 or older</label>
+<label class="check"><input type="radio" name="adult" value="no"> I am under 18 (enter your age above)</label>
+<label class="check" id="guardianRow" hidden><input id="guardian_consent" type="checkbox"> I am this driver's parent or guardian, and I agree to these details and photo being shown on league broadcasts.</label>
+<label class="check"><input id="consent" type="checkbox"> I agree to these details and my photo being shown on the league's broadcasts and graphics.</label></section>
+<input class="hp" id="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button id="send" type="submit">Submit my profile</button><div id="msg" class="msg" role="status"></div>
+<p class="fine">Only your league's broadcaster can see what you send. Nothing is shown until they approve it.</p>
+</form></main><script>
+const $=id=>document.getElementById(id);let photo='';
+document.querySelectorAll('input[name=adult]').forEach(r=>r.addEventListener('change',()=>{$('guardianRow').hidden=document.querySelector('input[name=adult]:checked').value!=='no';}));
+$('bio').addEventListener('input',()=>{$('bioCount').textContent=$('bio').value.length+' / 360';});
+$('photo').addEventListener('change',async e=>{photo='';$('pic').textContent='No photo';const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{const bmp=await createImageBitmap(file,{imageOrientation:'from-image'});const s=Math.min(1,1000/Math.max(bmp.width,bmp.height));
+ const c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+ photo=c.toDataURL('image/jpeg',.86);const img=document.createElement('img');img.alt='Your photo';img.src=photo;$('pic').textContent='';$('pic').appendChild(img);}
+ catch(_){show('That photo could not be read. Try a JPEG or PNG.',false);}});
+function leagueRow(){const n=$('leagues').children.length;if(n>=10)return;const d=document.createElement('div');d.className='lg';
+ d.innerHTML='<div class="three"><div><label>League name</label><input type="text" data-k="league_name" maxlength="100"></div><div><label>League ID</label><input type="text" data-k="league_id" inputmode="numeric" maxlength="9" placeholder="e.g. 4521"></div><div><label>Your name in this league</label><input type="text" data-k="name_in_league" maxlength="100"></div></div>';
+ if(n>0){d.classList.add('more');const x=document.createElement('button');x.type='button';x.className='x';x.textContent='Remove';x.onclick=()=>d.remove();d.appendChild(x);}
+ $('leagues').appendChild(d);$('addLeague').hidden=$('leagues').children.length>=10;}
+leagueRow();$('addLeague').addEventListener('click',()=>{leagueRow();const l=$('leagues').lastElementChild;if(l)l.querySelector('input').focus();});
+function show(t,ok){const m=$('msg');m.textContent=t;m.className='msg '+(ok?'ok':'err');}
+$('f').addEventListener('submit',async e=>{e.preventDefault();const adult=document.querySelector('input[name=adult]:checked').value==='yes';
+ const body={user_id:$('user_id').value.trim(),name:$('name').value,number:$('number').value,team:$('team').value,hometown:$('hometown').value,bio:$('bio').value,
+  favorite_track:$('favorite_track').value,favorite_car:$('favorite_car').value,
+  leagues:[...document.querySelectorAll('#leagues .lg')].map(r=>{const o={};r.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.value.trim());return o;}),social_link:$('social_link').value,
+  age:$('age').value.trim(),adult,share_age:$('share_age').checked,guardian_consent:$('guardian_consent').checked,consent:$('consent').checked,photo_base64:photo,website:$('website').value};
+ $('send').disabled=true;show('Sending…',true);
+ try{const r=await fetch('https://sri-driver-inbox.jlfollow.workers.dev/submit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));
+  if(r.ok&&d.ok){show('Sent. Thank you! Your broadcaster will review it before the next show.',true);}else show(d.error||'It did not send. Try again.',false);}
+ catch(_){show('It did not send. Check your connection and try again.',false);}finally{$('send').disabled=false;}});
+</script></body></html>
